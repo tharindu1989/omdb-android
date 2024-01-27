@@ -1,4 +1,4 @@
-package com.omdb.movie.ui.theme
+package com.omdb.movie.presentation.theme
 
 import android.app.Activity
 import android.os.Build
