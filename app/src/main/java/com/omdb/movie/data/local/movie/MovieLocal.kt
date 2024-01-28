@@ -1,9 +1,9 @@
-package com.omdb.movie.domain.movie
+package com.omdb.movie.data.local.movie
 
-data class MovieData(
+data class MovieLocal(
     val id: String,
     val title: String,
-    val type: MediaType,
     val year: String,
+    val type: String,
     val image: String
 )
