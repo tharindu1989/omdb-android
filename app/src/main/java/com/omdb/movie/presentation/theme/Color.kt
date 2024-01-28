@@ -1,8 +1,12 @@
-package com.omdb.movie.ui.theme
+package com.omdb.movie.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
+val Background = Color(0xFF15141F)
+val BackgroundLight = Color(0xFF211F30)
+
+val White = Color(0xFFFFFFFF)
+val Purple80 = Color(0xFFBBBBBB)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
 
