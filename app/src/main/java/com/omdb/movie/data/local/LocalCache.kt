@@ -2,6 +2,7 @@ package com.omdb.movie.data.local
 
 import com.omdb.movie.data.local.movie.MovieLocal
 
+// TODO move to room database
 class LocalCache {
     private val cacheMap: MutableMap<String, List<MovieLocal>> = mutableMapOf()
 
@@ -16,11 +17,8 @@ class LocalCache {
     fun hasCache(searchWord: String): Boolean {
         return cacheMap.containsKey(searchWord)
     }
-
+    // TODO expire cache
     fun clearCache() {
         cacheMap.clear()
     }
 }
-
-
-// batma

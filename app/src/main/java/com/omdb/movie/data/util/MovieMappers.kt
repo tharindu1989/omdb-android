@@ -5,10 +5,10 @@ import com.omdb.movie.data.remote.movie.MovieDto
 import com.omdb.movie.data.remote.movie.MovieResponseDto
 import com.omdb.movie.domain.movie.MediaType
 import com.omdb.movie.domain.movie.MovieData
-import com.omdb.movie.domain.movie.MovieResponse
+import com.omdb.movie.domain.movie.MovieResult
 
-fun MovieResponseDto.Success.toMovieResponse(): MovieResponse {
-    return MovieResponse(
+fun MovieResponseDto.Success.toMovieResponse(): MovieResult {
+    return MovieResult(
         total = this.total,
         movies = this.search.map { it.toMovie() }
     )

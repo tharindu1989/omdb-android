@@ -2,6 +2,7 @@ package com.omdb.movie.data
 
 import com.omdb.movie.domain.movie.MediaType
 import com.omdb.movie.domain.movie.MovieData
+import com.omdb.movie.domain.movie.MovieDetails
 import java.util.UUID
 
 fun movie() = MovieData(
@@ -13,3 +14,11 @@ fun movie() = MovieData(
 )
 
 fun movies() = (1..10).map { movie() }
+
+fun movieDetails() = MovieDetails(
+    title = "Movie Title",
+    imdbID = "movie-id",
+    type = "movie",
+    ratings = listOf(),
+    response = "True",
+)

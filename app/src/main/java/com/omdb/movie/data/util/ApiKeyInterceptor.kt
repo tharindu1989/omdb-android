@@ -3,7 +3,7 @@ package com.omdb.movie.data.util
 import okhttp3.Interceptor
 import okhttp3.Response
 
-private const val API_KEY = "58f7c212"
+private const val API_KEY = "YOUR_OMDB_API_KEY"
 
 class ApiInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
