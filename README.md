@@ -44,7 +44,7 @@ To make API requests to the OMDB service, you need to obtain an API key. If you 
 private const val API_KEY = "YOUR_OMDB_API_KEY" 
 ```
 ### Screens
-Movie Screen               |  Detail Screen
+Movie Screen               |  Details Screen
 :-------------------------:|:-------------------------:
 ![](/screens/movie-screen.png)  |  ![](/screens/details-screen.png)
 
