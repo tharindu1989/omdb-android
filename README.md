@@ -31,7 +31,7 @@ This project utilizes the following key dependencies:
 ### Setup
 
 1. Clone the repository:
-   `git clone https://github.com/your-username/movie-ratings-app.git`
+   `git clone https://github.com/tharindu1989/omdb-android.git`
 2. Open the project in Android Studio.
 3. Build and run the app on your preferred emulator or Android device.
 
