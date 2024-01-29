@@ -26,6 +26,9 @@ class DetailsViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
+    /**
+     * Get Movie details by id
+     */
     fun getDetails(id: String) {
         _isLoading.update { true }
         viewModelScope.launch(dispatcher) {

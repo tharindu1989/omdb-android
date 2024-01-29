@@ -57,10 +57,13 @@ class MoviesViewModel @Inject constructor(
         _searchText.value = title
     }
 
-    private fun searchByTitle(title: String) {
+    /**
+     * Search movies by title and type
+     */
+    private fun searchByTitle(title: String, type: MediaType = MediaType.MOVIE) {
         _isSearching.update { true }
         viewModelScope.launch(ioDispatcher) {
-            when (val result = movieRepository.searchMovies(title = title, MediaType.MOVIE)) {
+            when (val result = movieRepository.searchMovies(title = title, type = type)) {
                 is Response.Success -> {
                     _movies.update { result.data.movies }
                 }

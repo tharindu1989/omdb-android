@@ -27,7 +27,7 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun `Should search movies successfully`() = runTest {
+    fun `Movie list should be loaded successfully`() = runTest {
 
         val testDispatcher = UnconfinedTestDispatcher(testScheduler)
         val moviesViewModel = MoviesViewModel(
@@ -40,7 +40,7 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun `Should movie list empty when search text length less than 3`() = runTest {
+    fun `Movie list should be empty when search text length less than 3`() = runTest {
 
         val testDispatcher = UnconfinedTestDispatcher(testScheduler)
         val moviesViewModel = MoviesViewModel(

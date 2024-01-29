@@ -8,6 +8,7 @@ import com.omdb.movie.domain.util.Response
 
 class MovieRepositoryFake : MovieRepository {
     var movies = movies()
+    var movieDetails = movieDetails()
     var error: Exception? = null
 
     override suspend fun searchMovies(title: String, type: MediaType?): Response<MovieResult> {
@@ -24,6 +25,13 @@ class MovieRepositoryFake : MovieRepository {
     }
 
     override suspend fun details(id: String): Response<MovieDetails> {
-        return Response.Error("Unknown Error") // TODO
+
+        return error?.let {
+            Response.Error(it.message ?: "Unknown Error")
+        } ?: run {
+            Response.Success(
+                data = movieDetails
+            )
+        }
     }
 }
