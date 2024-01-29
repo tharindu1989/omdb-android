@@ -9,13 +9,11 @@ import com.omdb.movie.domain.rempository.MovieRepository
 import com.omdb.movie.domain.util.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -41,15 +39,16 @@ class MoviesViewModel @Inject constructor(
 
     init {
         _searchText
-            .debounce(1000L)
-            .filter {
-                it.length > 2
-            }
+            .debounce(1000)
             .distinctUntilChanged()
-            .flowOn(Dispatchers.IO)
+            .flowOn(ioDispatcher)
             .onEach { title ->
-                _isSearching.update { true }
-                searchByTitle(title)
+                if (title.length >= 3) {
+                    searchByTitle(title)
+                } else {
+                    _movies.update { listOf() }
+                }
+
             }
             .launchIn(viewModelScope)
     }
@@ -59,6 +58,7 @@ class MoviesViewModel @Inject constructor(
     }
 
     private fun searchByTitle(title: String) {
+        _isSearching.update { true }
         viewModelScope.launch(ioDispatcher) {
             when (val result = movieRepository.searchMovies(title = title, MediaType.MOVIE)) {
                 is Response.Success -> {
@@ -66,7 +66,7 @@ class MoviesViewModel @Inject constructor(
                 }
 
                 is Response.Error -> {
-                    _movies.update { listOf() }
+                    // TODO Show error message
                 }
             }
             _isSearching.update { false }

@@ -3,9 +3,13 @@ package com.omdb.movie.presentation.movies
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.omdb.movie.presentation.common.LoadingIndicator
 import com.omdb.movie.presentation.common.MovieCard
+import com.omdb.movie.presentation.common.NotFound
 import com.omdb.movie.presentation.theme.Background
 import com.omdb.movie.presentation.theme.BackgroundLight
 import com.omdb.movie.presentation.theme.Purple80
@@ -39,13 +45,19 @@ fun MoviesScreen(
 ) {
     val searchText by viewModel.searchText.collectAsState()
     val movies by viewModel.movies.collectAsState()
-
+    val isLoading by viewModel.isSearching.collectAsState()
     Surface {
         Column(
             Modifier
                 .background(Background)
                 .padding(all = 24.dp)
+                .fillMaxSize()
         ) {
+            Spacer(
+                Modifier.windowInsetsTopHeight(
+                    WindowInsets.systemBars
+                )
+            )
             Text(
                 text = "Find Movies, Tv series, and more", color = White, // Font color
                 fontSize = 24.sp, // Font size
@@ -53,9 +65,11 @@ fun MoviesScreen(
                 modifier = Modifier.padding(bottom = 12.dp)
             )
             SearchTextField(
-                value = searchText,
+                value = searchText ?: "",
                 onValueChange = { viewModel.onSearch(it) }
             )
+            if(isLoading) LoadingIndicator()
+            if(movies.isEmpty() && !isLoading) NotFound()
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier
@@ -65,7 +79,8 @@ fun MoviesScreen(
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 items(movies.size) { index ->
-                    MovieCard(movies[index]) {
+                    MovieCard(movies[index]) { movie ->
+                        navController.navigate("details/${movie.id}")
                     }
                 }
             }
@@ -103,3 +118,4 @@ fun SearchTextField(value: String, onValueChange: (String) -> Unit) {
         ),
     )
 }
+
